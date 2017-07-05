@@ -1,5 +1,4 @@
 require('./style/index.less');
-
 var React = require('react');
 var request = require('../../request');
 var {Button} = require('client/uskin/index');

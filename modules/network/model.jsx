@@ -351,9 +351,6 @@ class Model extends React.Component {
       title: __.network_type,
       content: networkType
     }, {
-      title: __.vlan_id,
-      content: networkType === 'vlan' ? item['provider:segmentation_id'] : '-'
-    }, {
       title: __.security + __.restrict,
       content: item.port_security_enabled ?
         <span className="label-active">{__.on}</span> : <span className="label-down">{__.off}</span>
@@ -364,7 +361,18 @@ class Model extends React.Component {
       title: __.shared,
       content: item.shared ? __.yes : __.no
     }];
-
+    if (networkType === 'vlan') {
+      items.push({
+        title: __.vlan_id,
+        content: networkType === 'vlan' ? item['provider:segmentation_id'] : '-'
+      });
+    }
+    if (networkType === 'flat') {
+      items.push({
+        title: __.physical_network,
+        content: networkType === 'flat' ? item['provider:physical_network'] : '-'
+      });
+    }
     return items;
   }
 
