@@ -13,6 +13,11 @@ module.exports = (str, option) => {
   } else {
     switch(status) {
       case 'active':
+      case 'create_complete':
+      case 'check_complete':
+      case 'suspend_complete':
+      case 'resume_complete':
+      case 'delete_complete':
       case 'alarm_status_ok':
         type.icon = 'active';
         type.status = 'active';
@@ -22,12 +27,18 @@ module.exports = (str, option) => {
         type.status = 'available';
         break;
       case 'data_insufficient':
+      case 'init_complete':
       case 'down':
         type.icon = 'active';
         type.status = 'down';
         break;
       case 'alarm':
       case 'error':
+      case 'check_failed':
+      case 'suspend_failed':
+      case 'resume_failed':
+      case 'create_failed':
+      case 'delete_failed':
         type.icon = 'warning';
         type.status = 'error';
         break;
@@ -38,6 +49,10 @@ module.exports = (str, option) => {
       case 'paused':
       case 'suspended':
         type.icon = 'paused';
+        type.status = 'paused';
+        break;
+      case 'shelved_offloaded':
+        type.icon = 'warning';
         type.status = 'paused';
         break;
       case 'shutoff':

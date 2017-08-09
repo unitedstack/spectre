@@ -28,6 +28,26 @@ class Model extends React.Component {
   constructor(props) {
     super(props);
 
+    if(HALO.user.roles.indexOf('admin') !== -1) {
+      config.btns.unshift({
+        'value': ['create', 'image'],
+        'key': 'create_image',
+        'type': 'create',
+        'icon': 'create'
+      });
+      config.btns.some(btn => {
+        if (btn.dropdown) {
+          btn.dropdown.items[0].items.unshift({
+            'title': ['edit', 'image'],
+            'key': 'edit_image',
+            'disabled': true
+          });
+          return true;
+        }
+        return false;
+      });
+    }
+
     this.state = {
       config: config
     };
@@ -129,7 +149,7 @@ class Model extends React.Component {
 
       var table = _config.table;
       var data = res.filter((ele) => {
-        return ele.image_type !== 'snapshot';
+        return ele.image_type !== 'snapshot' && ele.visibility === 'public';
       });
       table.data = data;
       table.loading = false;
@@ -179,13 +199,16 @@ class Model extends React.Component {
         createVolume(rows[0]);
         break;
       case 'create_image':
-        image();
+        this.state.config.tabs.forEach(tab => tab.default && image({type: tab.key}));
         break;
       case 'edit_image':
-        image(rows[0], null, () => {
-          this.refresh({
-            detailRefresh: true
-          }, true);
+        this.state.config.tabs.forEach(tab => {
+          tab.default &&
+          image({item: rows[0], type: tab.key}, null, () => {
+            this.refresh({
+              detailRefresh: true
+            }, true);
+          });
         });
         break;
       case 'delete':

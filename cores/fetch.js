@@ -13,16 +13,17 @@ function errHandler(err) {
 
 var fetch = {};
 
-['get', 'post', 'put', 'delete', 'patch'].forEach((m) => {
+['get', 'post', 'put', 'delete', 'patch', 'head'].forEach((m) => {
   fetch[m] = function(options) {
     var opt = Object.assign({
       dataType: 'json',
       contentType: 'application/json',
-      headers: {
-        REGION: HALO.current_region
-      }
+      headers: {}
     }, options);
 
+    if(!options.headers || !options.headers.REGION) {
+      opt.headers.REGION = HALO.current_region;
+    }
     return request[m](opt).catch(errHandler);
   };
 });
