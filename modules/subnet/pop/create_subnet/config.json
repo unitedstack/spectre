@@ -5,14 +5,10 @@
     "field": "subnet_name",
     "is_long_label": true
   }, {
-    "type": "select",
-    "field": "select_network",
-    "data": [],
-    "empty_text": {
-      "info": "no_network",
-      "link_info": ["create", "network"]
-    },
-    "is_long_label": true
+    "type": "input",
+    "field": "input_network",
+    "is_long_label": true,
+    "required": true
   }, {
     "type": "input",
     "field": "net_address",

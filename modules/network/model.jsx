@@ -348,7 +348,7 @@ class Model extends React.Component {
       content: getStatusIcon(item.status)
     }, {
       title: __.network_type,
-      content: networkType || 'vxlan'
+      content: networkType
     }, {
       title: __.security + __.restrict,
       content: item.port_security_enabled ?
@@ -370,7 +370,13 @@ class Model extends React.Component {
         title: __.physical_network,
         content: networkType === 'flat' ? item['provider:physical_network'] : '-'
       });
+    } else if (networkType === 'vxlan') {
+      items.push({
+        title: __.physical_network,
+        content: networkType === 'vxlan' ? item['provider:physical_network'] : '-'
+      });
     }
+
     return items;
   }
 
