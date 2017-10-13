@@ -53,6 +53,10 @@ class Model extends React.Component {
       });
     }
 
+    // temporarily hide back_up btn
+    config.btns = config.btns.filter((btn) => {
+      return btn.key !== 'back_up';
+    });
     this.state = {
       config: config
     };
@@ -166,7 +170,7 @@ class Model extends React.Component {
       }
 
       this.setState({
-        config: config
+        config: this.state.config
       }, () => {
         if (detail && detailRefresh) {
           detail.refresh();
@@ -304,7 +308,7 @@ class Model extends React.Component {
     }
 
     btns.update_bootable.disabled = !(isSingle && (singleStatus === 'available' || singleStatus === 'in-use'));
-    btns.back_up.disabled = !(isSingle && (singleStatus === 'available' || singleStatus === 'in-use'));
+    // btns.back_up.disabled = !(isSingle && (singleStatus === 'available' || singleStatus === 'in-use'));
     btns.attach_to_instance.disabled = !(isSingle && singleStatus === 'available' && !single.attachments[0]);
     btns.create_transfer.disabled = !(isSingle && singleStatus === 'available');
     btns.create_snapshot.disabled = !(isSingle && (singleStatus === 'available' || singleStatus === 'in-use'));

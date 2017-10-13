@@ -21,6 +21,10 @@ class Model extends React.Component {
   constructor(props) {
     super(props);
 
+    // temporarily hide back_up btn
+    config.btns = config.btns.filter((btn) => {
+      return btn.key !== 'back_up';
+    });
     this.state = {
       config: config
     };
@@ -203,9 +207,9 @@ class Model extends React.Component {
         case 'create':
           btns[key].disabled = rows.length === 1 ? false : true;
           break;
-        case 'back_up':
-          btns[key].disabled = rows.length === 1 ? false : true;
-          break;
+        // case 'back_up':
+        //   btns[key].disabled = rows.length === 1 ? false : true;
+        //   break;
         case 'del_snapshot':
           btns[key].disabled = rows.length > 0 ? false : true;
           break;
