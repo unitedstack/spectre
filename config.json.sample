@@ -31,7 +31,7 @@
   }, {
     "title": "storage",
     "items": [
-      "volume",
+      "volume-private",
       "snapshot"
     ]
   }, {

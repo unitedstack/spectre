@@ -134,6 +134,9 @@ class Model extends React.Component {
         return 'backup';
       case 'orchestration':
         return 'template-list';
+      case 'volume-private':
+      case 'volume-public':
+        return 'volume';
       default:
         return name;
     }
