@@ -77,10 +77,12 @@ class ModalBase extends React.Component {
     //sort image and snapshot
     res.image.forEach((ele) => {
       let type = ele.image_type;
-      if (type !== 'snapshot') {
-        images.push(ele);
-      } else {
-        snapshots.push(ele);
+      if (ele.status === 'active') {
+        if (type !== 'snapshot') {
+          images.push(ele);
+        } else {
+          snapshots.push(ele);
+        }
       }
     });
 
@@ -699,12 +701,14 @@ class ModalBase extends React.Component {
             boot_index: 0,
             uuid: selectedImage.id,
             source_type: 'image',
-            volume_size: volumeTip.deviceSize,
-            device_name: volumeTip.deviceName,
+            volume_size: this.state.deviceSize,
             delete_on_termination: volumeTip.deleteVolume === 'yes'
           }];
+          if (volumeTip.deviceName) {
+            data.block_device_mapping_v2.device_name = volumeTip.deviceName;
+          }
           let dataVol = {};
-          dataVol.size = Number(volumeTip.deviceSize);
+          dataVol.size = Number(this.state.deviceSize);
           dataVol.imageRef = selectedImage.id;
 
           request.createVolume(dataVol);
@@ -969,6 +973,11 @@ class ModalBase extends React.Component {
       state={this.state} {...props}
       tooltipHolder={tooltipHolder}
       ref={(ref) => this.volumeTip = ref}
+      onChangeDeviceSize={(size) => {
+        this.setState({
+          deviceSize: size
+        });
+      }}
       onChangeNumber={this.onChangeNumber}/>);
     ret.push(Images);
     ret.push(Snapshots);

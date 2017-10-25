@@ -12,15 +12,8 @@ class VolumeTip extends React.Component {
     this.state = {
       checked: 'yes',
       deleteVolume: 'yes',
-      deviceName: '',
-      deviceSize: props.deviceSize
+      deviceName: ''
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      deviceSize: nextProps.deviceSize
-    });
   }
 
   onOverItem(content, contentHeight, e) {
@@ -73,9 +66,7 @@ class VolumeTip extends React.Component {
   }
 
   onChangeNumber(value) {
-    this.setState({
-      deviceSize: value
-    });
+    this.props.onChangeDeviceSize(value);
   }
 
   render() {
@@ -104,7 +95,7 @@ class VolumeTip extends React.Component {
     }, {
       key: 'volume_size',
       value: __.volume_size,
-      content: <InputNumber onChange={this.onChangeNumber.bind(this)} disabled={state.disabledNumber} min={1} value={this.state.deviceSize} width={84}/>
+      content: <InputNumber onChange={this.onChangeNumber.bind(this)} disabled={state.disabledNumber} min={1} value={this.props.deviceSize} width={84}/>
     }, {
       key: 'delete_volume_tip',
       value: __.delete_volume_tip,
