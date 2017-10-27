@@ -66,7 +66,7 @@ class VolumeTip extends React.Component {
   }
 
   onChangeNumber(value) {
-    this.props.onChangeDeviceSize(value);
+    this.props.onChangeDeviceSize(Number(value));
   }
 
   render() {
